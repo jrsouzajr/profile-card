@@ -4,5 +4,6 @@ export interface ProfileCardProps {
     jobTitle: string, 
     place: string, 
     skills: string[],
-    isFollowing: boolean
+    isFollowing: boolean,
+    followers: number
 }

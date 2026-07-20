@@ -12,6 +12,7 @@ function App() {
           place="Miami - Florida"
           skills={["HTML5", "CSS", "React", "Angular", "DotNet"]}
           isFollowing={true}
+          followers={1}
         />
         <ProfileCard
           imgLink="https://mockmind-api.uifaces.co/content/human/217.jpg"
@@ -20,6 +21,7 @@ function App() {
           place="Oakland Park - Florida"
           skills={["DotNet", "Node"]}
           isFollowing={false}
+          followers={0}
         />
         <ProfileCard
           imgLink="https://mockmind-api.uifaces.co/content/human/216.jpg"
@@ -28,6 +30,7 @@ function App() {
           place="Fort Laudardale - Florida"
           skills={["HTML5", "CSS", "React"]}
           isFollowing={false}
+          followers={0}
         />
       </div>
     </div>
