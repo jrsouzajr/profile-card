@@ -3,5 +3,6 @@ export interface ProfileCardProps {
     name: string, 
     jobTitle: string, 
     place: string, 
-    skills: string[]
+    skills: string[],
+    isFollowing: boolean
 }
