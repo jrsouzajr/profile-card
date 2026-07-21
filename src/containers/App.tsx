@@ -13,6 +13,7 @@ function App() {
           skills={["HTML5", "CSS", "React", "Angular", "DotNet"]}
           isFollowing={true}
           followers={1}
+          isOwner={true}
         />
         <ProfileCard
           imgLink="https://mockmind-api.uifaces.co/content/human/217.jpg"

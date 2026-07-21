@@ -1,0 +1,19 @@
+.like-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    margin-top: 6px;
+}
+
+span.text-like {
+    color: #fff;
+    margin-left: 4px;
+}
+
+.liked {
+    color: #ff0000;
+}
