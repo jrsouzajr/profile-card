@@ -8,6 +8,7 @@ import ModalEditProfile from "../modal-edit-profile/modal-edit-profile";
 
 import "./profile-card.css";
 import LocationIcon from "../../assets/location.svg";
+import { Button } from "../ui/button";
 
 const ProfileCard = ({
   imgLink,
@@ -56,6 +57,12 @@ const handleEditModal = (profile: Profile) => {
   setProfileInformation(profile)
 }
 
+const handleCancelEdition = (profile: Profile) => {
+  setIsModalOpen(!isModalOpen)
+  setProfileInformation(profile)
+}
+
+
   return (
     <div className="profileCardMain">
       <div className="profileCardAnimation">
@@ -86,15 +93,15 @@ const handleEditModal = (profile: Profile) => {
               </div>
             ) : (
               <div className="divButton">
-                <button onClick={() => setIsModalOpen(true)}>
+                <Button onClick={() => setIsModalOpen(true)}>
                   Edit Profile
-                </button>
+                </Button>
               </div>
             )}
           </div>
         </div>
       </div>
-      {isModalOpen ? <div className="backgroundModal"><ModalEditProfile profile={profileInformation} handleEditModal={handleEditModal}/></div> : ""}
+      {isModalOpen ? <div className="backgroundModal"><ModalEditProfile handleCancelEdition={handleCancelEdition} profile={profileInformation} handleEditModal={handleEditModal}/></div> : ""}
     </div>
   );
 };

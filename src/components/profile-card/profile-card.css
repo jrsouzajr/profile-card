@@ -61,6 +61,7 @@
     font-family: monospace;
     display: flex;
     align-items: center;
+    margin-top: 10px;
 }
 
 .profileCardInformation {
@@ -88,4 +89,13 @@ img.location-icon {
     top: 0;
     z-index: 100;
     background: hwb(0deg 0% 100% / 70%);
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.followers-component
+ {
+    margin-top: 10px;
 }

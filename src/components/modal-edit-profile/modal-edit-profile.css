@@ -1,10 +1,6 @@
 .modal-edit-profile {
-    position: absolute;
-    width: 60%;
-    height: 70%;
-    left: 25%;
-    top: 10%;
-    display: flex;
+    width: 450px;
+    height: 600px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -12,4 +8,47 @@
     border: 1px solid #ddd;
     box-shadow: 0px 5px 50px 10px;
     border-radius: 3px;
+    position: relative;
+}
+
+.modal-profile-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+img.profileImage {
+    border-radius: 300px;
+}
+
+
+.modal-info {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-title {
+    margin: 0;
+    padding: 10px 20px 2px 20px;
+    font-size: 18px;
+    color: #7d6262;
+    font-family: Roboto;
+}
+
+.div-modal-buttons {
+    position: absolute;
+    width: 100%;
+    bottom: 8px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
 }

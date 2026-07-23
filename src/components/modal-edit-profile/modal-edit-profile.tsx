@@ -1,28 +1,111 @@
-import { useState } from "react"
-import type { ModalEditProfileInterface } from "./modal-edit-profile.type"
-import './modal-edit-profile.css'
+import { useState } from "react";
+import type { ModalEditProfileInterface } from "./modal-edit-profile.type";
 
-const ModalEditProfile = ({profile, handleEditModal}: ModalEditProfileInterface) => {
+import { Input } from "@/components/ui/input";
+import {
+  Field,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
 
-const [profileInformation, setProfileInformation] = useState(profile)
+import "./modal-edit-profile.css";
+import { Button } from "../ui/button";
 
-    return (
-        <div className="modal-edit-profile">
-            Edit Profile
-            <hr/>
-            <img className="profileImage" src={profile.imgLink} alt={profile.name}/>
-            Name
-            <input type="text" value={profileInformation.name} onChange={(e) => setProfileInformation({...profileInformation, name: e.target.value})} placeholder="Name"/>
-            Job Description
-            <input type="text" value={profileInformation.jobTitle} onChange={(e) => setProfileInformation({...profileInformation, jobTitle: e.target.value})} placeholder="Job Title"/>
-            Location
-            <input type="text" value={profileInformation.place} onChange={(e) => setProfileInformation({...profileInformation, place: e.target.value})} placeholder="Location"/>
-            Skills
-            <div className="">{profileInformation.skills}</div>
+const ModalEditProfile = ({
+  profile,
+  handleEditModal,
+  handleCancelEdition,
+}: ModalEditProfileInterface) => {
+  const [profileInformation, setProfileInformation] = useState(profile);
 
-            <button className="" onClick={() => handleEditModal(profileInformation)}>Save</button>
+  return (
+    <div className="modal-edit-profile">
+      <p className="modal-title">Edit Profile</p>
+      <hr />
+
+      <div className="modal">
+        <div className="modal-profile-image">
+          <img
+            className="profileImage"
+            src={profile.imgLink}
+            alt={profile.name}
+          />
         </div>
-    )
-}
+        <div className="modal-info">
+          <form>
+            <FieldGroup>
+              <Field className="gap-1">
+                <FieldLabel htmlFor="name">Name</FieldLabel>
+                <Input
+                  id="name"
+                  type="text"
+                  value={profileInformation.name}
+                  onChange={(e) =>
+                    setProfileInformation({
+                      ...profileInformation,
+                      name: e.target.value,
+                    })
+                  }
+                  placeholder="Name"
+                />
+              </Field>
+              <Field className="gap-1">
+                <FieldLabel htmlFor="jobDescription">
+                  Job Description
+                </FieldLabel>
+                <Input
+                  id="jobDescription"
+                  className="input-text-modal"
+                  type="text"
+                  value={profileInformation.jobTitle}
+                  onChange={(e) =>
+                    setProfileInformation({
+                      ...profileInformation,
+                      jobTitle: e.target.value,
+                    })
+                  }
+                  placeholder="Job Title"
+                />
+              </Field>
+              <Field className="gap-1">
+                <FieldLabel htmlFor="place">Location</FieldLabel>
+                <Input
+                  id="place"
+                  className="input-text-modal"
+                  type="text"
+                  value={profileInformation.place}
+                  onChange={(e) =>
+                    setProfileInformation({
+                      ...profileInformation,
+                      place: e.target.value,
+                    })
+                  }
+                  placeholder="Location"
+                />
+              </Field>
+            </FieldGroup>
+          </form>
+        </div>
+      </div>
+      <div className="div-modal-buttons">
+        <hr />
+        <div className="modal-buttons">
+          <Button
+            className=""
+            onClick={() => handleEditModal(profileInformation)}
+          >
+            Save
+          </Button>
+          <Button
+            className="modal-cancel"
+            onClick={() => handleCancelEdition(profile)}
+          >
+            Cancel
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-export default ModalEditProfile
+export default ModalEditProfile;
