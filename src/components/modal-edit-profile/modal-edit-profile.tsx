@@ -1,15 +1,13 @@
 import { useState } from "react";
 import type { ModalEditProfileInterface } from "./modal-edit-profile.type";
 
-import { Input } from "@/components/ui/input";
 import {
-  Field,
   FieldGroup,
-  FieldLabel,
 } from "@/components/ui/field";
 
 import "./modal-edit-profile.css";
 import { Button } from "../ui/button";
+import TextInputField from "../text-input-field/text-input-field";
 
 const ModalEditProfile = ({
   profile,
@@ -17,6 +15,21 @@ const ModalEditProfile = ({
   handleCancelEdition,
 }: ModalEditProfileInterface) => {
   const [profileInformation, setProfileInformation] = useState(profile);
+
+const handleEventChange = (event: React.ChangeEvent<HTMLInputElement>, textInputId: string) => {
+  
+  console.log(event.target);
+
+  switch(textInputId) {
+    case "name" :
+    break;
+    case "jobTitle":
+    break;
+    case "place":
+    break;
+ 
+  }
+}
 
   return (
     <div className="modal-edit-profile">
@@ -34,7 +47,12 @@ const ModalEditProfile = ({
         <div className="modal-info">
           <form>
             <FieldGroup>
-              <Field className="gap-1">
+
+
+
+              <TextInputField textTitle="Name" id="name" handleEventChange={(e) => handleEventChange(e, "name")} inputValue={profileInformation.name} messageError="" placeholder="Name" isValidData={true}></TextInputField>
+
+              {/* <Field className="gap-1">
                 <FieldLabel htmlFor="name">Name</FieldLabel>
                 <Input
                   id="name"
@@ -48,8 +66,8 @@ const ModalEditProfile = ({
                   }
                   placeholder="Name"
                 />
-              </Field>
-              <Field className="gap-1">
+              </Field> */}
+              {/* <Field className="gap-1">
                 <FieldLabel htmlFor="jobDescription">
                   Job Description
                 </FieldLabel>
@@ -82,7 +100,12 @@ const ModalEditProfile = ({
                   }
                   placeholder="Location"
                 />
-              </Field>
+              </Field> */}
+
+
+
+
+
             </FieldGroup>
           </form>
         </div>
