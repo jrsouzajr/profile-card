@@ -57,9 +57,8 @@ const handleEditModal = (profile: Profile) => {
   setProfileInformation(profile)
 }
 
-const handleCancelEdition = (profile: Profile) => {
+const handleCancelEdition = () => {
   setIsModalOpen(!isModalOpen)
-  setProfileInformation(profile)
 }
 
 

@@ -3,33 +3,79 @@ import type { ModalEditProfileInterface } from "./modal-edit-profile.type";
 
 import {
   FieldGroup,
+  FieldLabel,
 } from "@/components/ui/field";
 
 import "./modal-edit-profile.css";
 import { Button } from "../ui/button";
 import TextInputField from "../text-input-field/text-input-field";
+import { IconX } from '@tabler/icons-react';
+import { Input } from "../ui/input";
+
+type ProfileField = "name" | "jobTitle" | "place";
 
 const ModalEditProfile = ({
   profile,
   handleEditModal,
   handleCancelEdition,
 }: ModalEditProfileInterface) => {
+
   const [profileInformation, setProfileInformation] = useState(profile);
+  const [errors, setErrors] = useState({
+  name: "",
+  jobTitle: "",
+  place: "",
+});
+const hasChanges = JSON.stringify(profile) !== JSON.stringify(profileInformation);
 
-const handleEventChange = (event: React.ChangeEvent<HTMLInputElement>, textInputId: string) => {
+const handleEventChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   
-  console.log(event.target);
+  const value = event.target.value;
+  const name = event.target.name as ProfileField
+  
+  setProfileInformation((prevProfileInformation) => ({
+    ...prevProfileInformation,
+    [name]: value
+  }))
+  
+  setErrors((prevErrors) => ({
+    ...prevErrors,
+    [name]: validateField(name, value)
+  }))
+  
+}
 
-  switch(textInputId) {
-    case "name" :
-    break;
-    case "jobTitle":
-    break;
-    case "place":
-    break;
- 
+const validateField = (name: ProfileField, value: string) => {
+  switch(name) {
+  case "name":
+    return value.trim() ? "" : "Name is required"
+  case "jobTitle" :
+    return value.trim().length >= 3 ? "" : "Job title must have at least 3 characters"
+  case "place":
+    return value.trim() ? "" : "Place is required"
+
+  default: return ""
   }
 }
+
+const checkErrors = () => {
+  return (
+    errors.name === "" &&
+    errors.jobTitle === "" &&
+    errors.place === ""
+  )
+}
+
+const removeSkill = (index: number) => {
+  const skillsList = profileInformation.skills.filter((skill, skillIndex) => {
+    return skillIndex !== index})
+
+    setProfileInformation((prevInfo) => ({
+      ...prevInfo,
+      skills: skillsList
+    }))
+}
+
 
   return (
     <div className="modal-edit-profile">
@@ -47,65 +93,24 @@ const handleEventChange = (event: React.ChangeEvent<HTMLInputElement>, textInput
         <div className="modal-info">
           <form>
             <FieldGroup>
-
-
-
-              <TextInputField textTitle="Name" id="name" handleEventChange={(e) => handleEventChange(e, "name")} inputValue={profileInformation.name} messageError="" placeholder="Name" isValidData={true}></TextInputField>
-
-              {/* <Field className="gap-1">
-                <FieldLabel htmlFor="name">Name</FieldLabel>
+              <TextInputField textTitle="Name" id="name" name="name" handleEventChange={handleEventChange} inputValue={profileInformation.name} messageError={errors.name} placeholder="Name" isInvalidData={!!errors.name.trim()}></TextInputField>
+              <TextInputField textTitle="Job Title" id="jobTitle" name="jobTitle" handleEventChange={handleEventChange} inputValue={profileInformation.jobTitle} messageError={errors.jobTitle} placeholder="Job Title" isInvalidData={!!errors.jobTitle.trim()}></TextInputField>
+              <TextInputField textTitle="Location" id="place" name="place" handleEventChange={handleEventChange} inputValue={profileInformation.place} messageError={errors.place} placeholder="Location" isInvalidData={!!errors.place.trim()}></TextInputField>
+              {profileInformation.skills.map((skill, index) =>
+                <div>{skill}
+                <Button onClick={() => removeSkill(index)}><IconX/></Button>
+                </div>
+              )}
+              <div className="add-skill">
+                <FieldLabel htmlFor="skills">Skills</FieldLabel>
                 <Input
-                  id="name"
+                //TODO: Continue to add skills and removing skills
+                  id="skills"
                   type="text"
-                  value={profileInformation.name}
-                  onChange={(e) =>
-                    setProfileInformation({
-                      ...profileInformation,
-                      name: e.target.value,
-                    })
-                  }
-                  placeholder="Name"
+                  placeholder="Add skill"
                 />
-              </Field> */}
-              {/* <Field className="gap-1">
-                <FieldLabel htmlFor="jobDescription">
-                  Job Description
-                </FieldLabel>
-                <Input
-                  id="jobDescription"
-                  className="input-text-modal"
-                  type="text"
-                  value={profileInformation.jobTitle}
-                  onChange={(e) =>
-                    setProfileInformation({
-                      ...profileInformation,
-                      jobTitle: e.target.value,
-                    })
-                  }
-                  placeholder="Job Title"
-                />
-              </Field>
-              <Field className="gap-1">
-                <FieldLabel htmlFor="place">Location</FieldLabel>
-                <Input
-                  id="place"
-                  className="input-text-modal"
-                  type="text"
-                  value={profileInformation.place}
-                  onChange={(e) =>
-                    setProfileInformation({
-                      ...profileInformation,
-                      place: e.target.value,
-                    })
-                  }
-                  placeholder="Location"
-                />
-              </Field> */}
-
-
-
-
-
+              <Button className="rounded-full" onClick={() => {}}>Add skill</Button>
+              </div>
             </FieldGroup>
           </form>
         </div>
@@ -114,6 +119,7 @@ const handleEventChange = (event: React.ChangeEvent<HTMLInputElement>, textInput
         <hr />
         <div className="modal-buttons">
           <Button
+            disabled={!checkErrors() || !hasChanges}
             className=""
             onClick={() => handleEditModal(profileInformation)}
           >
@@ -121,7 +127,7 @@ const handleEventChange = (event: React.ChangeEvent<HTMLInputElement>, textInput
           </Button>
           <Button
             className="modal-cancel"
-            onClick={() => handleCancelEdition(profile)}
+            onClick={handleCancelEdition}
           >
             Cancel
           </Button>
